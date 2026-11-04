@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Generate realistic mock JSON data for 3Y0K Bouvet demo.
 
-This will be replaced by sqlite-to-json.py once Watson delivers the real SQLite.
+Superseded by sqlite-to-json.py, which converts the published SQLite.
 """
 import json
 import math

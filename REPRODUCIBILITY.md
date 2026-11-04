@@ -1,15 +1,19 @@
 # Reproducing the 3Y0K Analysis
 
-This document describes how to reproduce the full analysis pipeline from raw
-ClickHouse data to the live demo site. All scripts and data are public.
+This document describes the analysis pipeline from raw spot data to the live demo site.
+
+The dataset it produces is published: download
+[`3y0k-bouvet-island-2026.sqlite`](https://sourceforge.net/projects/ionis-ai/files/dxpeditions/)
+and start at Step 4 to rebuild the site from it. Steps 1 to 3 record how that file was made; the
+export and VOACAP runner scripts they name are not published with this demo.
 
 ## Prerequisites
+
+For Step 4 onwards: Python 3.10+ and Node.js 20+. For Steps 1 to 3:
 
 - ClickHouse with `rbn.bronze`, `pskr.bronze`, `solar.bronze`, `solar.dscovr`
 - `voacapl` (v16.1207W) installed at `/usr/local/bin/voacapl`
 - `~/itshfbc/` initialized via `makeitshfbc`
-- Python 3.10+ with standard library only (no pip dependencies for export scripts)
-- Node.js 20+ for the demo site
 - IONIS-AI V22-gamma checkpoint (for model predictions — requires PyTorch + MPS or CUDA)
 
 ## Step 1 — Export Dataset from ClickHouse
@@ -24,7 +28,7 @@ python dxpeditions/export_dxpedition_analysis.py \
   --output /mnt/sourceforge/dxpeditions/
 ```
 
-**Script**: `ionis-devel/dxpeditions/export_dxpedition_analysis.py`
+**Script**: `export_dxpedition_analysis.py` (not published)
 **Output**: `3y0k-bouvet-island-2026.sqlite` with 5 tables (rbn_spots,
 rbn_signatures, pskr_signatures, solar_timeline, dxpedition_info)
 
@@ -33,7 +37,6 @@ rbn_signatures, pskr_signatures, solar_timeline, dxpedition_info)
 This step requires the production V22-gamma checkpoint and PyTorch. Run on a
 machine with MPS (Mac) or CUDA (Linux) backend.
 
-**Owner**: Watson (Mac Studio M3 Ultra)
 **Method**: Load the DXpedition SQLite signatures, run V22-gamma inference on
 each (grid_pair, band, hour, SFI, Kp) tuple, output predictions CSV.
 **Script**: `ionis-jupyter/notebooks/dxpedition-3y0k-bouvet-2026.ipynb` (Section 7)
@@ -76,7 +79,7 @@ python dxpeditions/voacap_dxpedition_runner.py \
   --lon 3.38
 ```
 
-**Script**: `ionis-devel/dxpeditions/voacap_dxpedition_runner.py`
+**Script**: `voacap_dxpedition_runner.py` (not published)
 **Output**: Adds `voacap_snr` column to the `predictions`, `rbn_signatures`,
 and `pskr_signatures` tables in the SQLite file.
 
@@ -92,7 +95,7 @@ from SFI via `SSN ≈ SFI × 0.7`.
 
 ```bash
 python scripts/sqlite-to-json.py \
-  --input /mnt/sourceforge/dxpeditions/3y0k-bouvet-island-2026.sqlite \
+  --input 3y0k-bouvet-island-2026.sqlite \
   --slug 3y0k \
   --output src/data/3y0k
 ```
@@ -122,11 +125,3 @@ that commit.
 | GFZ Potsdam | gfz-potsdam.de | Historical SFI, SSN, Kp, Ap indices |
 | NOAA DSCOVR L1 | swpc.noaa.gov | Solar wind Bz, speed, density |
 | VOACAP | github.com/jawatson/voacapl | HF propagation prediction engine (v16.1207W) |
-
-## Verification
-
-Run the audit script to verify all claims match the data:
-
-```bash
-python scripts/audit.py  # (TODO: formalize the audit checks from this session)
-```
