@@ -12,28 +12,28 @@ Bouvet Island (DXCC #24), ranked #2 most wanted worldwide (Club Log). 102,000+ Q
 
 ### Pages
 
-- **Overview** — DXpedition info, key stats, solar summary
-- **Solar Conditions** — SFI, Kp, Bz timeline across the analysis window
-- **Activity Timeline** — Hourly spot rates by band
-- **Band Performance** — Per-band statistics and SNR distributions
-- **Geographic Reach** — Great-circle paths, distance histograms, continental breakdown
-- **Greyline Analysis** — Solar terminator, day/night propagation paths
-- **Predictions** — IONIS-AI V22-gamma vs VOACAP vs observed, 3-way comparison
+- **Overview**—DXpedition info, key stats, solar summary
+- **Solar Conditions**—SFI, Kp, Bz timeline across the analysis window
+- **Activity Timeline**—Hourly spot rates by band
+- **Band Performance**—Per-band statistics and SNR distributions
+- **Geographic Reach**—Great-circle paths, distance histograms, continental breakdown
+- **Greyline Analysis**—Solar terminator, day/night propagation paths
+- **Predictions**—IONIS-AI V22-gamma vs VOACAP vs observed, 3-way comparison
 
 ## Data Sources
 
-- [Reverse Beacon Network](https://reversebeacon.net) — CW skimmer observations
-- [PSK Reporter](https://pskreporter.info) — FT8/FT4 digital spots
-- [NOAA SWPC](https://www.swpc.noaa.gov) — Solar flux, Kp index
-- [GFZ Potsdam](https://www.gfz-potsdam.de) — Historical solar indices
-- [DSCOVR L1](https://www.swpc.noaa.gov/products/real-time-solar-wind) — Solar wind Bz, speed, density
+- [Reverse Beacon Network](https://reversebeacon.net)—CW skimmer observations
+- [PSK Reporter](https://pskreporter.info)—FT8/FT4 digital spots
+- [NOAA SWPC](https://www.swpc.noaa.gov)—Solar flux, Kp index
+- [GFZ Potsdam](https://www.gfz-potsdam.de)—Historical solar indices
+- [DSCOVR L1](https://www.swpc.noaa.gov/products/real-time-solar-wind)—Solar wind Bz, speed, density
 
 ## Tech Stack
 
 - Next.js 16 / TypeScript / Tailwind CSS
 - Recharts for data visualization
 - Leaflet for maps
-- Static export — no server required
+- Static export—no server required
 
 ## Data Pipeline
 
@@ -53,7 +53,7 @@ npm run build  # static export to out/
 
 ## License
 
-GPL-3.0-or-later — see [LICENSE](LICENSE).
+GPL-3.0-or-later—see [LICENSE](LICENSE).
 
 ## Credits
 
